@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CRYPTAGE
+{
+    class Program
+    {
+
+        static void testCrypte()
+        {
+            String resultat;
+            Console.WriteLine("Entrez un text : ");
+            resultat = Console.ReadLine();
+            resultat = crypt(resultat);
+            Console.WriteLine("Text après cryptage : " + resultat);
+            resultat = decrypter(resultat).ToString();
+            Console.WriteLine("Text après décryptage : " + resultat);
+            Console.ReadLine();
+        }
+
+        static string crypter(string param)
+        {
+            char entreC;
+            int clef = 8;/*c'est la clef qui sert au cryptage*/
+            entreC = param.ToCharArray()[0];
+            int resultatcry = (entreC + clef) - 256 * (Math.Abs((entreC + clef) / 256));
+            return resultatcry.ToString();
+        }
+
+        static char decrypter(string param)
+        {
+            char entreC;
+            int clef = 8;
+            int val = int.Parse(param);
+            int resultatdecry = (val - clef) + 256 / (Math.Abs((val - clef) * 256));
+            entreC = (char)resultatdecry;
+            return entreC;
+        }
+        static String crypt(String param) {
+            char[] entreC = null;
+            int clef = 8;
+            int l = param.Length;
+            int[] result = null;
+            for(int i = 0; i<=param.Length ;i++){
+                if ((param.ToCharArray()[0]) != 0) { 
+                    entreC[i] = param.ToCharArray()[0];
+                    result[i] = (entreC[i] + clef) - 256 * (Math.Abs((entreC[i] + clef) / 256));
+                }
+            }
+            return result.ToString();
+        }
+        static void Main()
+        {
+            testCrypte();
+        }
+    }
+}
